@@ -1,0 +1,138 @@
+package com.johns_group_hr_system.project_employees_assignments.entity;
+
+import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+
+@Entity
+@Table(name = "employees")
+public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    @Email
+    private String email;
+
+    @NotNull
+    private String team;
+
+    @NotNull
+    private String role;
+
+    @Min(0)
+    @Max(100)
+    private int score;
+
+    private LocalDate birthDate;
+
+    private LocalDate recrutementDate;
+
+    private String gender;
+
+    private int salary;
+
+    @ManyToMany
+    private List<Project> projects;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public LocalDate getRecrutementDate() {
+        return recrutementDate;
+    }
+
+    public void setRecrutementDate(LocalDate recrutementDate) {
+        this.recrutementDate = recrutementDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+}
