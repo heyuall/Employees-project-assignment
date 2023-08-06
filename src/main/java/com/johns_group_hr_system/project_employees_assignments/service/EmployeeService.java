@@ -45,5 +45,17 @@ public class EmployeeService implements IEmployeeService{
         return employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(partialName, role, projectId);
     }
 
+    @Override
+    public Employee evaluateEmployee(UUID id, int score) {
+        if (score < 0 || score > 100) {
+            throw new IllegalArgumentException("Score must be between 0 and 100.");
+        }
+
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("Employee with ID " + id + " not found."));
+
+        employee.setScore(score);
+        return employeeRepository.save(employee);
+    }
 }
 
