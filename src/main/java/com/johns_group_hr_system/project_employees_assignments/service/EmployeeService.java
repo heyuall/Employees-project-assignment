@@ -36,5 +36,14 @@ public class EmployeeService implements IEmployeeService{
         return employeeRepository.findAll();
     }
 
+    @Override
+    public List<Employee> filterEmployees(String partialName, String role, UUID projectId) {
+        if (partialName != null && !partialName.isEmpty()) {
+            partialName = "%" + partialName + "%";
+        }
+
+        return employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(partialName, role, projectId);
+    }
+
 }
 

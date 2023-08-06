@@ -12,4 +12,6 @@ public interface IEmployeeService {
     Employee getEmployeeById(UUID id);
 
     List<Employee> getAllEmployees();
+
+    List<Employee> filterEmployees(String partialName, String role, UUID projectId);
 }
