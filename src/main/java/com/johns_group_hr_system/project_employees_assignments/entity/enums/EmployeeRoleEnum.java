@@ -12,11 +12,11 @@ public enum EmployeeRoleEnum {
 
     private int id;
     private String value;
-    EmployeeRoleEnum(long id, String value){
-
+    EmployeeRoleEnum(int id, String value){
+        this.id = id;
+        this.value = value;
     }
 
-    // Reverse lookup
     private static final Map<String, EmployeeRoleEnum> LOOKUP = Maps.uniqueIndex(
             Arrays.asList(EmployeeRoleEnum.values()),
             EmployeeRoleEnum::getValue
