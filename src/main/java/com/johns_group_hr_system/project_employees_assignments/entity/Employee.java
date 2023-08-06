@@ -1,5 +1,6 @@
 package com.johns_group_hr_system.project_employees_assignments.entity;
 
+import com.johns_group_hr_system.project_employees_assignments.entity.enums.EmployeeRoleEnum;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
@@ -31,7 +32,8 @@ public class Employee {
     private String team;
 
     @NotNull
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private EmployeeRoleEnum role;
 
     @Min(0)
     @Max(100)
@@ -80,11 +82,11 @@ public class Employee {
         this.team = team;
     }
 
-    public String getRole() {
+    public EmployeeRoleEnum getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(EmployeeRoleEnum role) {
         this.role = role;
     }
 
