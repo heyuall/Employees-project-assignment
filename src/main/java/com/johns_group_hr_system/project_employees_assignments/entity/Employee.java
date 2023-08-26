@@ -2,7 +2,6 @@ package com.johns_group_hr_system.project_employees_assignments.entity;
 
 import com.johns_group_hr_system.project_employees_assignments.entity.enums.EmployeeRoleEnum;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;

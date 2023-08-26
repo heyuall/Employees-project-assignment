@@ -1,11 +1,7 @@
 package com.johns_group_hr_system.project_employees_assignments.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.validator.constraints.URL;
-import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
