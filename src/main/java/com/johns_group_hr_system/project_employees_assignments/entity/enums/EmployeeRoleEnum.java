@@ -12,6 +12,7 @@ public enum EmployeeRoleEnum {
 
     private int id;
     private String value;
+    
     EmployeeRoleEnum(int id, String value){
         this.id = id;
         this.value = value;
@@ -27,7 +28,7 @@ public enum EmployeeRoleEnum {
         if (role == null){
             throw new NullPointerException(String.format("%s is not a value in EmployeeRoleEnum ", name));
         }
-        return LOOKUP.get(name);
+        return role;
     }
 
     public int getId() {
