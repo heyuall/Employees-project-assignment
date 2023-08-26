@@ -2,8 +2,10 @@ package com.johns_group_hr_system.project_employees_assignments.service;
 
 import com.johns_group_hr_system.project_employees_assignments.dto.EmployeeDto;
 import com.johns_group_hr_system.project_employees_assignments.entity.Employee;
+import com.johns_group_hr_system.project_employees_assignments.entity.Project;
 import com.johns_group_hr_system.project_employees_assignments.entity.enums.EmployeeRoleEnum;
 import com.johns_group_hr_system.project_employees_assignments.repository.IEmployeeRepository;
+import com.johns_group_hr_system.project_employees_assignments.repository.IProjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -19,12 +21,14 @@ class EmployeeServiceTest {
     private EmployeeService employeeService;
     private IEmployeeRepository employeeRepository;
     private ModelMapper modelMapper;
+    private IProjectRepository projectRepository;
 
     @BeforeEach
     void setUp() {
         employeeRepository = mock(IEmployeeRepository.class);
+        projectRepository = mock(IProjectRepository.class);
         modelMapper = new ModelMapper();
-        employeeService = new EmployeeService(employeeRepository);
+        employeeService = new EmployeeService(employeeRepository, projectRepository);
     }
 
     @Test
@@ -150,5 +154,79 @@ class EmployeeServiceTest {
 
         // when & then
         assertThrows(IllegalArgumentException.class, () -> employeeService.evaluateEmployee(id, invalidScore));
+    }
+
+    @Test
+    public void testAssignProjectsToEmployee() {
+        //given
+        UUID employeeId = UUID.randomUUID();
+        Employee employee = new Employee();
+        employee.setId(employeeId);
+        employee.setProjects(new ArrayList<>());
+
+        Project project1 = new Project();
+        UUID projectId1 = UUID.randomUUID();
+        project1.setId(projectId1);
+
+        Project project2 = new Project();
+        UUID projectId2 = UUID.randomUUID();
+        project2.setId(projectId2);
+
+        List<Project> projects = new ArrayList<>();
+        projects.add(project1);
+        projects.add(project2);
+
+        //when
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
+        when(projectRepository.findAllById(anyList())).thenReturn(projects);
+
+        employeeService.assignProjectsToEmployee(employeeId, List.of(projectId1, projectId2));
+
+        //then
+        assertEquals(employee.getProjects(), projects);
+        verify(employeeRepository).findById(employeeId);
+        verify(projectRepository).findAllById(List.of(projectId1, projectId2));
+        verify(employeeRepository).save(employee);
+    }
+
+    @Test
+    public void testUnassignProjectsFromEmployee() {
+        //given
+        UUID employeeId = UUID.randomUUID();
+        Employee employee = new Employee();
+        employee.setId(employeeId);
+
+        Project project1 = new Project();
+        UUID projectId1 = UUID.randomUUID();
+        project1.setId(projectId1);
+
+        Project project2 = new Project();
+        UUID projectId2 = UUID.randomUUID();
+        project2.setId(projectId2);
+
+        Project project3 = new Project();
+        UUID projectId3 = UUID.randomUUID();
+        project3.setId(projectId3);
+
+        List<Project> projects = new ArrayList<>();
+        projects.add(project1);
+        projects.add(project2);
+        projects.add(project3);
+
+        employee.setProjects(projects);
+
+        List<Project> projectsToRemove= List.of(project1, project2);
+
+        //when
+        when(employeeRepository.findById(employeeId)).thenReturn(Optional.of(employee));
+        when(projectRepository.findAllById(anyList())).thenReturn(projectsToRemove);
+
+        employeeService.unAssignProjectsFromEmployee(employeeId, List.of(projectId1, projectId2));
+
+        //then
+        assertEquals(employee.getProjects(), List.of(project3));
+        verify(employeeRepository).findById(employeeId);
+        verify(projectRepository).findAllById(List.of(projectId1, projectId2));
+        verify(employeeRepository).save(employee);
     }
 }
