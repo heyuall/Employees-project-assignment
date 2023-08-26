@@ -2,6 +2,7 @@ package com.johns_group_hr_system.project_employees_assignments.service;
 
 import com.johns_group_hr_system.project_employees_assignments.dto.EmployeeDto;
 import com.johns_group_hr_system.project_employees_assignments.entity.Employee;
+import com.johns_group_hr_system.project_employees_assignments.entity.enums.EmployeeRoleEnum;
 import com.johns_group_hr_system.project_employees_assignments.repository.IEmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,17 @@ public class EmployeeService implements IEmployeeService{
     }
 
     @Override
-    public List<Employee> filterEmployees(String partialName, String role, UUID projectId) {
+    public List<Employee> filterEmployees(String partialName, String role, UUID projectId) throws IllegalArgumentException {
         if (partialName != null && !partialName.isEmpty()) {
             partialName = "%" + partialName + "%";
         }
 
-        return employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(partialName, role, projectId);
+        try {
+            EmployeeRoleEnum roleEnum = EmployeeRoleEnum.valueOf(role);
+            return employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(partialName, roleEnum, projectId);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     @Override
