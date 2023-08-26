@@ -2,6 +2,7 @@ package com.johns_group_hr_system.project_employees_assignments.service;
 
 import com.johns_group_hr_system.project_employees_assignments.dto.EmployeeDto;
 import com.johns_group_hr_system.project_employees_assignments.entity.Employee;
+import com.johns_group_hr_system.project_employees_assignments.entity.enums.EmployeeRoleEnum;
 import com.johns_group_hr_system.project_employees_assignments.repository.IEmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,13 +36,13 @@ class EmployeeServiceTest {
         employeeDto.setRole("DEVELOPER");
 
         Employee employee = modelMapper.map(employeeDto, Employee.class);
-        when(employeeRepository.save(any())).thenReturn(employee);
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
         // when
         employeeService.createEmployee(employeeDto);
 
         // then
-        verify(employeeRepository, times(1)).save(employee);
+        verify(employeeRepository, times(1)).save(any(Employee.class));
     }
 
     @Test
@@ -99,7 +100,7 @@ class EmployeeServiceTest {
         employees.add(new Employee());
         employees.add(new Employee());
         when(employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(
-                "%" + partialName + "%", role, projectId))
+                "%" + partialName + "%", EmployeeRoleEnum.valueOf(role), projectId))
                 .thenReturn(employees);
 
         // when
