@@ -22,7 +22,11 @@ public enum EmployeeRoleEnum {
             EmployeeRoleEnum::getValue
     );
 
-    public static EmployeeRoleEnum fromName(String name) {
+    public static EmployeeRoleEnum fromName(String name) throws NullPointerException{
+        EmployeeRoleEnum role = LOOKUP.get(name);
+        if (role == null){
+            throw new NullPointerException();
+        }
         return LOOKUP.get(name);
     }
 
