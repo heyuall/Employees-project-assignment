@@ -16,4 +16,8 @@ public interface IEmployeeService {
     List<Employee> filterEmployees(String partialName, String role, UUID projectId);
 
     Employee evaluateEmployee(UUID id, int score);
+
+    void assignProjectsToEmployee(UUID employeeId, List<UUID> projectIds);
+
+    void unAssignProjectsFromEmployee(UUID employeeId, List<UUID> projectIds);
 }

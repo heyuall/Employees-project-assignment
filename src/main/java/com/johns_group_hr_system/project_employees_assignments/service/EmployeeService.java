@@ -2,8 +2,11 @@ package com.johns_group_hr_system.project_employees_assignments.service;
 
 import com.johns_group_hr_system.project_employees_assignments.dto.EmployeeDto;
 import com.johns_group_hr_system.project_employees_assignments.entity.Employee;
+import com.johns_group_hr_system.project_employees_assignments.entity.Project;
 import com.johns_group_hr_system.project_employees_assignments.entity.enums.EmployeeRoleEnum;
 import com.johns_group_hr_system.project_employees_assignments.repository.IEmployeeRepository;
+import com.johns_group_hr_system.project_employees_assignments.repository.IProjectRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +17,14 @@ import java.util.UUID;
 public class EmployeeService implements IEmployeeService{
 
     private final IEmployeeRepository employeeRepository;
+
+    private final IProjectRepository projectRepository;
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
-    public EmployeeService(IEmployeeRepository employeeRepository) {
+    public EmployeeService(IEmployeeRepository employeeRepository, IProjectRepository projectRepository) {
         this.employeeRepository = employeeRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -62,6 +68,30 @@ public class EmployeeService implements IEmployeeService{
 
         employee.setScore(score);
         return employeeRepository.save(employee);
+    }
+
+    @Transactional
+    @Override
+    public void assignProjectsToEmployee(UUID employeeId, List<UUID> projectIds) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new IllegalArgumentException("Employee not found"));
+
+        List<Project> projects = projectRepository.findAllById(projectIds);
+        employee.getProjects().addAll(projects);
+
+        employeeRepository.save(employee);
+    }
+
+    @Override
+    @Transactional
+    public void unAssignProjectsFromEmployee(UUID employeeId, List<UUID> projectIds) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new IllegalArgumentException("Employee not found"));
+
+        List<Project> projects = projectRepository.findAllById(projectIds);
+        employee.getProjects().removeAll(projects);
+
+        employeeRepository.save(employee);
     }
 }
 
