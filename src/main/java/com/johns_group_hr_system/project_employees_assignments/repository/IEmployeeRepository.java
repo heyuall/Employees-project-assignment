@@ -11,6 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface IEmployeeRepository extends JpaRepository<Employee, UUID> {
-    List<Employee> findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(@NotNull String name, @NotNull EmployeeRoleEnum role, UUID projects_id);
+    List<Employee> findByNameContainingIgnoreCaseAndRoleAndProjectsContains(@NotNull String name, @NotNull EmployeeRoleEnum role, UUID projects_id);
 
 }

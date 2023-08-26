@@ -99,7 +99,7 @@ class EmployeeServiceTest {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee());
         employees.add(new Employee());
-        when(employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(
+        when(employeeRepository.findByNameContainingIgnoreCaseAndRoleAndProjectsContains(
                 "%" + partialName + "%", EmployeeRoleEnum.valueOf(role), projectId))
                 .thenReturn(employees);
 

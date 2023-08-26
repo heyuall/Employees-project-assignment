@@ -45,7 +45,7 @@ public class EmployeeService implements IEmployeeService{
 
         try {
             EmployeeRoleEnum roleEnum = EmployeeRoleEnum.valueOf(role);
-            return employeeRepository.findByNameContainingIgnoreCaseAndRoleIgnoreCaseAndProjectsId(partialName, roleEnum, projectId);
+            return employeeRepository.findByNameContainingIgnoreCaseAndRoleAndProjectsContains(partialName, roleEnum, projectId);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e);
         }
