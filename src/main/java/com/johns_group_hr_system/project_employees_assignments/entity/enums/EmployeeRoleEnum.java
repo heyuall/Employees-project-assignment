@@ -25,7 +25,7 @@ public enum EmployeeRoleEnum {
     public static EmployeeRoleEnum fromName(String name) throws NullPointerException{
         EmployeeRoleEnum role = LOOKUP.get(name);
         if (role == null){
-            throw new NullPointerException();
+            throw new NullPointerException(String.format("%s is not a value in EmployeeRoleEnum ", name));
         }
         return LOOKUP.get(name);
     }
