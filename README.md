@@ -7,13 +7,13 @@ Welcome to the HR System API documentation. This API provides endpoints to manag
 
 ## Table of Contents
 
-- [Endpoints](##endpoints)
-- [Authorization and Security](##authorization-and-security)
-- [Getting Started](##getting-started)
-  - [Launching the Application](###launching-the-application)
-  - [Executing Tests](###executing-tests)
-- [Dependencies and Java Version](##dependencies-and-java-version)
-- [Entity Constraint Validation](##entity-constraint-validation)
+- [Endpoints](#endpoints)
+- [Authorization and Security](#authorization-and-security)
+- [Getting Started](#getting-started)
+  - [Launching the Application](#launching-the-application)
+  - [Executing Tests](#executing-tests)
+- [Dependencies and Java Version](#dependencies-and-java-version)
+- [Entity Constraint Validation](#entity-constraint-validation)
 
 ## Endpoints
 
