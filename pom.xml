@@ -69,6 +69,18 @@
 			<version>32.1.2-jre</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-envers -->
+<!--		<dependency>-->
+<!--			<groupId>org.hibernate</groupId>-->
+<!--			<artifactId>hibernate-envers</artifactId>-->
+<!--			<version>6.2.2.Final</version>-->
+<!--			<type>pom</type>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.hibernate</groupId>-->
+<!--			<artifactId>hibernate-envers</artifactId>-->
+<!--			<version>5.6.3.Final</version>-->
+<!--		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

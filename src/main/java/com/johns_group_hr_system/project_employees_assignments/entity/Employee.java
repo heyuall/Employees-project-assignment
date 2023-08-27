@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "employees")
+//@Audited
 public class Employee {
 
     @Id

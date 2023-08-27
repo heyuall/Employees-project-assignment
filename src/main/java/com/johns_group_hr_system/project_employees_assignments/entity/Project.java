@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "projects")
+//@Audited
 public class Project {
 
     @Id
