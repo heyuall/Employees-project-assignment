@@ -20,4 +20,6 @@ public interface IEmployeeService {
     void assignProjectsToEmployee(UUID employeeId, List<UUID> projectIds);
 
     void unAssignProjectsFromEmployee(UUID employeeId, List<UUID> projectIds);
+
+    Employee getEmployeeByUsername(String username);
 }

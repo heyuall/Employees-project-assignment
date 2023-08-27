@@ -93,5 +93,10 @@ public class EmployeeService implements IEmployeeService{
 
         employeeRepository.save(employee);
     }
+
+    @Override
+    public Employee getEmployeeByUsername(String username) {
+        return null;
+    }
 }
 
