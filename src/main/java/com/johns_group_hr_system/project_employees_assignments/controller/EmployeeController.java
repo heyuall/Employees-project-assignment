@@ -3,13 +3,11 @@ package com.johns_group_hr_system.project_employees_assignments.controller;
 import com.johns_group_hr_system.project_employees_assignments.dto.EmployeeDto;
 import com.johns_group_hr_system.project_employees_assignments.entity.Employee;
 import com.johns_group_hr_system.project_employees_assignments.service.IEmployeeService;
-import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Max;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,7 +54,7 @@ public class EmployeeController {
     @PostMapping("/employees/{id}/evaluate")
     public ResponseEntity<Employee> evaluateEmployee(
             @PathVariable UUID id,
-            @RequestParam(name = "score") @Min(0) @Max(100) int score) {
+            @RequestParam(name = "score") int score) {
         try {
             Employee evaluatedEmployee = employeeService.evaluateEmployee(id, score);
             return new ResponseEntity<>(evaluatedEmployee,HttpStatus.OK);
